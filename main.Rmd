@@ -218,3 +218,25 @@ ggplot(Avg_NextGame_All, aes(x = reorder(Group, -AvgNextGame), y =AvgNextGame)) 
   xlab("Team") +
   ylab("Average Runs Scored in Next Game") 
 ```
+
+Now let's find some differences in ranks between runs scored after big game, and runs scored in general. Essentially, did the best run scoring teams do well off of big games?
+
+```{r}
+# Get teams, add ranks for avg next game
+avg_next_game_ranks = Avg_NextGame_All %>% 
+  filter(!(Group %in% c("MLB AVG", "NL", "AL"))) %>% 
+  rename(Team = Group) %>% 
+  mutate(Rank = 1:length(Team))
+
+# Get teams, add rank for total run scoring
+avg_scored_per_game_ranks = avg_scored_per_game %>%
+  mutate(Rank = 1:length(Team))
+
+rank_diffs = avg_next_game_ranks %>% inner_join(avg_scored_per_game_ranks, by = "Team") %>% mutate(RankDiff = Rank.y - Rank.x) %>% select(Team, RankDiff) %>% arrange(desc(RankDiff))
+rank_diffs %>% 
+  mutate(RankDiff = cell_spec(RankDiff, color = ifelse(RankDiff > 0, "green", "red"))) %>% 
+  kbl(escape = FALSE) %>% 
+  kable_styling(c("striped", "hover"))
+```
+
+
