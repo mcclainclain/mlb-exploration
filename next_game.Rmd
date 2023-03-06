@@ -1,9 +1,10 @@
-# A Little MLB Exploration
+# How do teams do after a good game?
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,message=FALSE)
 library(tidyverse)
 library(kableExtra)
+library(ggrepel)
 ```
 
 #### Read in the data
@@ -35,7 +36,7 @@ game_data = game_data %>%
   relocate(ID, .after = Date)
 ```
 
-### The Question
+#### The Question
 
 Every once in a while, an MLB game will end with a team scoring an abnormal amount of runs. Question one asks: In **2022**:
 
@@ -219,6 +220,7 @@ ggplot(Avg_NextGame_All, aes(x = reorder(Group, -AvgNextGame), y =AvgNextGame)) 
   ylab("Average Runs Scored in Next Game") 
 ```
 
+#### Rank Differences
 Now let's find some differences in ranks between runs scored after big game, and runs scored in general. Essentially, did the best run scoring teams do well off of big games?
 
 ```{r}
@@ -239,4 +241,16 @@ rank_diffs %>%
   kable_styling(c("striped", "hover"))
 ```
 
+
+Plot Runs Scored vs Runs Scored after Big Game
+
+```{r}
+runs_combined = avg_next_game_ranks %>% inner_join(avg_scored_per_game_ranks, by = "Team") %>% select(Team, avg_runs_scored, AvgNextGame) 
+
+ggplot(runs_combined, aes(x = AvgNextGame, y = avg_runs_scored)) +
+  geom_point(color = "blue", size = 1) +
+  geom_label_repel(aes(label = Team), box.padding = 0.35, point.padding = 0.5, segment.color = 'grey50') + theme_classic()
+  
+
+```
 
