@@ -1,0 +1,40 @@
+
+# New Ideas
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,message=FALSE)
+library(tidyverse)
+library(kableExtra)
+library(ggrepel)
+```
+
+
+#### Read in the data
+
+```{r}
+game_data = read_csv("./logs/gl2022.csv", col_names = FALSE)
+game_log_header = read_csv("https://raw.githubusercontent.com/maxtoki/baseball_R/master/data/game_log_header.csv", col_names = FALSE)
+colnames(game_data) = game_log_header
+game_data = game_data %>% rename(HomeRunsScored = HomeRunsScore) # fix error in name
+```
+
+```{r}
+# Fix some errors in the data
+game_data = game_data %>% 
+  mutate(HomeTeamLeague = replace(HomeTeamLeague, HomeTeamLeague == 'NL.1', 'NL'))
+```
+
+```{r}
+# Make the date format more readable
+game_data[["Date"]] = as.Date(as.character(game_data[["Date"]]), "%Y%m%d")
+```
+
+```{r}
+# Create an ID number for each game in order to reference back to games.
+ids = seq(1:as.integer(count(game_data)))
+
+game_data = game_data %>% 
+  mutate(ID = ids) %>% 
+  relocate(ID, .after = Date)
+```
+
