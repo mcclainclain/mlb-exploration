@@ -10,4 +10,6 @@ For example, for the next_game.html file in this repository: visit [https://html
 
 Here are some descriptions of the different files in this repo.
 
-[next_game.html](https://htmlpreview.github.io/?https://github.com/mcclainclain/mlb-exploration/blob/main/next_game.html): Examines the 2022 season, and how MLB teams performed the **game after** scoring an abnormally high number of runs.
+- [next_game.html](https://htmlpreview.github.io/?https://github.com/mcclainclain/mlb-exploration/blob/main/next_game.html): Examines the 2022 season, and how MLB teams performed the **game after** scoring an abnormally high number of runs.
+- [durations.html](https://htmlpreview.github.io/?https://github.com/mcclainclain/mlb-exploration/blob/main/durations.html): A spot for some new ideas, specifically with regards to game duration over time.
+
