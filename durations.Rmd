@@ -1,5 +1,5 @@
 
-# New Ideas
+# Game Durations
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,message=FALSE)
@@ -32,6 +32,7 @@ long_games = durations %>%
 ggplot(long_games, aes(Year, long_games_pct)) +
   geom_col(fill = "lightblue", color = "black", linewidth = 0.3) +
   geom_smooth(se = FALSE, color="black") +
+  labs(title = "Percentage of 3+hr games by Year", y = "Percentage of 3+hr games") +
   theme_classic()
 ```
 

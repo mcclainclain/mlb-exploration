@@ -96,7 +96,6 @@ ggplot(avg_scored_per_game, aes(reorder(Team, -avg_runs_scored), avg_runs_scored
 
 What is a lot of runs? To define this we'll take a look at all of the instances of runs scored.
 
-
 ```{r}
 instances = c(games_q1$VisitorRunsScored, games_q1$HomeRunsScored)
 high_quantile = as.double(quantile(instances, c(0.95)))
@@ -231,6 +230,7 @@ ggplot(Avg_NextGame_All, aes(x = reorder(Group, -AvgNextGame), y =AvgNextGame)) 
 ```
 
 #### Rank Differences
+
 Now let's find some differences in ranks between runs scored after big game, and runs scored in general. Essentially, did the best run scoring teams do well off of big games?
 
 ```{r}
@@ -251,7 +251,6 @@ rank_diffs %>%
   kable_styling(c("striped", "hover"))
 ```
 
-
 Plot Runs Scored vs Runs Scored after Big Game
 
 ```{r}
@@ -263,4 +262,3 @@ ggplot(runs_combined, aes(x = AvgNextGame, y = avg_runs_scored)) +
   
 
 ```
-
